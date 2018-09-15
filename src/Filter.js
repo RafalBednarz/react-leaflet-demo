@@ -9,11 +9,8 @@ export default (props) => {
   // thus when a user selects a new subway line to view, the component passes the new filter value
   // to the parent component, Map, which reloads the GeoJSON data with the current filter value
   return (
-    <div className="filterSubwayLines">
-      <hr/>
-      <h3>Brooklyn Subway Entrances</h3>
-      <p>A <a href="http://leafletjs.com/">Leaflet</a> &amp; <a href="https://facebook.github.io/react/">React</a> demo</p>
-      <p>Filter Entrances by Subway Line</p>
+    <div className="filterCities">
+      <h3>Wybierz miasto</h3>
       <select defaultValue="*"
         type="select"
         name="filterlines"

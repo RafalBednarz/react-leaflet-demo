@@ -3,30 +3,31 @@ import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
-import geojson from 'json!./bk_subway_entrances.geojson';
-// import local components Filter and ForkMe
+import geojson from 'json!./rental_locations.geojson';
+// import local component Filter
 import Filter from './Filter';
-import ForkMe from './ForkMe';
+//import axios from 'axios';
 
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
 let config = {};
 config.params = {
-  center: [40.655769,-73.938503],
+  center: [52.655769,19.938503],
   zoomControl: false,
-  zoom: 13,
-  maxZoom: 19,
-  minZoom: 11,
+  zoom: 6,
+  maxZoom: 21,
+  minZoom: 2,
   scrollwheel: false,
   legends: true,
   infoControl: false,
   attributionControl: true
 };
+var token = 'pk.eyJ1IjoicmJlZG5hcnoiLCJhIjoiY2psdmpmY3dmMHFreTNxcXZwbWQ0b2d5ZyJ9.TnVzeqFz-gaTNhfD6nFulQ';
 config.tileLayer = {
-  uri: 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+  uri: 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/{z}/{x}/{y}@2x?access_token=' + token,
   params: {
-    minZoom: 11,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    minZoom: 2,
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     id: '',
     accessToken: ''
   }
@@ -34,8 +35,7 @@ config.tileLayer = {
 
 // array to store unique names of Brooklyn subway lines,
 // this eventually gets passed down to the Filter component
-let subwayLineNames = [];
-
+let cityNames = [];
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -87,13 +87,39 @@ class Map extends Component {
   getData() {
     // could also be an AJAX request that results in setting state with the geojson data
     // for simplicity sake we are just importing the geojson data using webpack's json loader
-    this.setState({
-      numEntrances: geojson.features.length,
-      geojson
-    });
+/*      fetch('http://localhost:8080/locations').then(res => {
+          console.log(geojson1);
+          const geojson1 = res.data.data.children.map(obj => obj.data)
+          this.setState({
+              numEntrances: res.data.features.length,
+              geojson: geojson1.getValue
+          });
+          //console.log(geojson1);
+      });*/
+
+/*      axios.get(`http://localhost:8080/locations/`)
+          .then(res => {
+              const geojson1 = res.text();
+              this.setState({
+                  numEntrances: geojson1.features.length,
+                  geojson: geojson1
+              });
+          });*/
+
+
+/*      axios.get(`http://www.reddit.com/r/${this.props.subreddit}.json`)
+          .then(res => {
+              const posts = res.data.data.children.map(obj => obj.data);
+              this.setState({ posts });
+          });*/
+      this.setState({
+          numEntrances: geojson.features.length,
+          geojson
+      });
   }
 
-  updateMap(e) {
+
+    updateMap(e) {
     let subwayLine = e.target.value;
     // change the subway line filter
     if (subwayLine === "All lines") {
@@ -143,7 +169,7 @@ class Map extends Component {
   filterFeatures(feature, layer) {
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
-    const test = feature.properties.LINE.split('-').indexOf(this.state.subwayLinesFilter);
+    const test = feature.properties.CITY.split('-').indexOf(this.state.subwayLinesFilter);
     if (this.state.subwayLinesFilter === '*' || test !== -1) {
       return true;
     }
@@ -165,29 +191,22 @@ class Map extends Component {
   }
 
   onEachFeature(feature, layer) {
-    if (feature.properties && feature.properties.NAME && feature.properties.LINE) {
 
-      // if the array for unique subway line names has not been made, create it
-      // there are 19 unique names total
-      if (subwayLineNames.length < 19) {
+    if (feature.properties && feature.properties.NAME && feature.properties.CITY) {
 
-        // add subway line name if it doesn't yet exist in the array
-        feature.properties.LINE.split('-').forEach(function(line, index){
-          if (subwayLineNames.indexOf(line) === -1) subwayLineNames.push(line);
-        });
+        if (cityNames.indexOf(feature.properties.CITY) === -1) cityNames.push(feature.properties.CITY);
 
         // on the last GeoJSON feature
         if (this.state.geojson.features.indexOf(feature) === this.state.numEntrances - 1) {
           // use sort() to put our values in alphanumeric order
-          subwayLineNames.sort();
+          cityNames.sort();
           // finally add a value to represent all of the subway lines
-          subwayLineNames.unshift('All lines');
+          cityNames.unshift('Wszystkie');
         }
-      }
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
       const popupContent = `<h3>${feature.properties.NAME}</h3>
-        <strong>Access to MTA lines: </strong>${feature.properties.LINE}`;
+        <strong>Access to MTA lines: </strong>${feature.properties.CITY}`;
 
       // add our popups
       layer.bindPopup(popupContent);
@@ -214,13 +233,12 @@ class Map extends Component {
       <div id="mapUI">
         {
           /* render the Filter component only after the subwayLines array has been created */
-          subwayLineNames.length &&
-            <Filter lines={subwayLineNames}
+          cityNames.length &&
+            <Filter lines={cityNames}
               curFilter={subwayLinesFilter}
               filterLines={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />
-        <ForkMe />
       </div>
     );
   }

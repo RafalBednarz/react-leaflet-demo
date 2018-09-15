@@ -1,7 +1,8 @@
 {
   "description": "Leaflet React demo",
   "scripts": {
-    "test": "n/a"
+    "start": "node ./scripts/start.js",
+    "build": "node ./scripts/build.js"
   },
   "repository": {
     "type": "git",
@@ -65,10 +66,6 @@
     "leaflet": "^0.7.7",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
-  },
-  "scripts": {
-    "start": "node ./scripts/start.js",
-    "build": "node ./scripts/build.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"

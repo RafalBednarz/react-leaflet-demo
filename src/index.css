@@ -7,9 +7,9 @@ html, body {
 #root, #map, #mapUI {
   width: inherit;
   height: inherit;
-  background-color: #000;
+  background-color: #FFF;
 }
-.filterSubwayLines {
+.filterCities {
   position: absolute;
   top: 10px;
   z-index: 10;
@@ -23,18 +23,18 @@ html, body {
   padding-bottom: 10px;
   border-radius: 5px;
 }
-.filterSubwayLines hr {
-  border: 1px solid #000;
+.filterCities hr {
+  border: 1px solid #FFF;
   margin: 5px;
 }
-.filterSubwayLines h3 {
+.filterCities h3 {
   margin-top: 0;
   padding-left: 5px;
 }
-.filterSubwayLines p {
+.filterCities p {
   padding-left: 5px;
 }
-.filterSubwayLines select {
+.filterCities select {
   display: block;
   margin: 0 auto;
 }
