@@ -2,7 +2,7 @@ import React from 'react';
 
 // the UI component for filtering the subway entrances by subway line
 export default (props) => {
-  const { lines, filterLines } = props;
+  const { filterPrices } = props;
 
   // this is the JSX that will become the Filter UI in the DOM, notice it looks pretty similar to HTML
   // notice in the select element onChange is set to the updateFilter method
@@ -13,11 +13,12 @@ export default (props) => {
       <h3>Cena</h3>
       <select defaultValue="*"
         type="select"
-        name="filterprices"
+        name="filterlines"
         onChange={(e) => filterPrices(e)}>
-          {<option value="100" key="1">100</option>}, this)
-          {<option value="200" key="2">200</option>}, this)
-          }
+          <option value="*" key="1">Wszytkie</option>
+          <option value="150" key="2">Do 150</option>
+          <option value="250" key="3">Do 250</option>
+          <option value="350" key="4">Do 350</option>
       </select>
     </div>
   );
