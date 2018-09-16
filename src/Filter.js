@@ -10,18 +10,13 @@ export default (props) => {
   // to the parent component, Map, which reloads the GeoJSON data with the current filter value
   return (
     <div className="filterCities">
-      <h3>Wybierz miasto</h3>
+      <h3>Cena</h3>
       <select defaultValue="*"
         type="select"
-        name="filterlines"
-        onChange={(e) => filterLines(e)}>
-          { /* We render the select's option elements by maping each of the values of subwayLines array to option elements */ }
-          {
-            lines.map((line, i) => {
-              return (
-                  <option value={line} key={i}>{line}</option>
-                );
-            }, this)
+        name="filterprices"
+        onChange={(e) => filterPrices(e)}>
+          {<option value="100" key="1">100</option>}, this)
+          {<option value="200" key="2">200</option>}, this)
           }
       </select>
     </div>

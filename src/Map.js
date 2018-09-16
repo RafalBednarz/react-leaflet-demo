@@ -3,7 +3,7 @@ import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
-import geojson from 'json!./rental_locations.geojson';
+//import geojson from 'json!./rental_locations.geojson';
 // import local component Filter
 import Filter from './Filter';
 //import axios from 'axios';
@@ -44,7 +44,7 @@ class Map extends Component {
       tileLayer: null,
       geojsonLayer: null,
       geojson: null,
-      subwayLinesFilter: '*',
+      priceFilter: '*',
       numEntrances: null
     };
     this._mapNode = null;
@@ -72,7 +72,7 @@ class Map extends Component {
     }
 
     // check to see if the subway lines filter has changed
-    if (this.state.subwayLinesFilter !== prevState.subwayLinesFilter) {
+    if (this.state.priceFilter !== prevState.priceFilter) {
       // filter / re-render the geojson overlay
       this.filterGeoJSONLayer();
     }
@@ -85,49 +85,24 @@ class Map extends Component {
   }
 
   getData() {
-    // could also be an AJAX request that results in setting state with the geojson data
-    // for simplicity sake we are just importing the geojson data using webpack's json loader
-/*      fetch('http://localhost:8080/locations').then(res => {
-          console.log(geojson1);
-          const geojson1 = res.data.data.children.map(obj => obj.data)
-          this.setState({
-              numEntrances: res.data.features.length,
-              geojson: geojson1.getValue
-          });
-          //console.log(geojson1);
-      });*/
-
-/*      axios.get(`http://localhost:8080/locations/`)
-          .then(res => {
-              const geojson1 = res.text();
-              this.setState({
-                  numEntrances: geojson1.features.length,
-                  geojson: geojson1
-              });
-          });*/
-
-
-/*      axios.get(`http://www.reddit.com/r/${this.props.subreddit}.json`)
-          .then(res => {
-              const posts = res.data.data.children.map(obj => obj.data);
-              this.setState({ posts });
-          });*/
-      this.setState({
-          numEntrances: geojson.features.length,
-          geojson
-      });
+      fetch('http://localhost:8080/locations')
+          .then(response => response.json())
+          .then(parsedJSON => this.setState({
+              numEntrances: parsedJSON.features.length,
+              geojson: parsedJSON
+          }))
+              .catch(error => alert('failed to fetch data', error));
   }
 
-
     updateMap(e) {
-    let subwayLine = e.target.value;
+    let priceUpTo = e.target.value;
     // change the subway line filter
-    if (subwayLine === "All lines") {
-      subwayLine = "*";
+    if (priceUpTo === "All lines") {
+      priceUpTo = "*";
     }
     // update our state with the new filter value
     this.setState({
-      subwayLinesFilter: subwayLine
+      priceFilter: priceUpTo
     });
   }
 
@@ -169,8 +144,8 @@ class Map extends Component {
   filterFeatures(feature, layer) {
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
-    const test = feature.properties.CITY.split('-').indexOf(this.state.subwayLinesFilter);
-    if (this.state.subwayLinesFilter === '*' || test !== -1) {
+    const test = feature.properties.CITY.split('-').indexOf(this.state.priceFilter);
+    if (this.state.priceFilter === '*' || test !== -1) {
       return true;
     }
   }
@@ -206,7 +181,7 @@ class Map extends Component {
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
       const popupContent = `<h3>${feature.properties.NAME}</h3>
-        <strong>Access to MTA lines: </strong>${feature.properties.CITY}`;
+        <strong>Cena: </strong>${feature.properties.PRICE}`;
 
       // add our popups
       layer.bindPopup(popupContent);
@@ -228,14 +203,14 @@ class Map extends Component {
   }
 
   render() {
-    const { subwayLinesFilter } = this.state;
+    const { priceFilter } = this.state;
     return (
       <div id="mapUI">
         {
           /* render the Filter component only after the subwayLines array has been created */
           cityNames.length &&
             <Filter lines={cityNames}
-              curFilter={subwayLinesFilter}
+              curFilter={priceFilter}
               filterLines={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />
