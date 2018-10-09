@@ -8,6 +8,7 @@ html, body {
   width: inherit;
   height: inherit;
   background-color: #FFF;
+  height: 90%;
 }
 .filterCities {
   position: absolute;

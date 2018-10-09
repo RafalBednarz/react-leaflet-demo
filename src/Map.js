@@ -4,7 +4,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
 //import geojson from 'json!./rental_locations.geojson';
-// import local component Filter
+
 import Filter from './Filter';
 
 // store the map configuration properties in an object,
@@ -32,9 +32,6 @@ config.tileLayer = {
   }
 };
 
-// array to store unique names of Brooklyn subway lines,
-// this eventually gets passed down to the Filter component
-//let cityNames = [];
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +56,8 @@ class Map extends Component {
       console.log("after getData");
     // create the Leaflet map object
     if (!this.state.map) this.init(this._mapNode);
+      console.log("add Marker");
+    //this.addMarker();
       console.log("finished componentDidMount");
   }
 
@@ -80,6 +79,8 @@ class Map extends Component {
       // filter / re-render the geojson overlay
       this.filterGeoJSONLayer();
     }
+
+
   }
 
   componentWillUnmount() {
@@ -192,6 +193,7 @@ class Map extends Component {
 
       // add our popups
       layer.bindPopup(popupContent);
+
     }
   }
 

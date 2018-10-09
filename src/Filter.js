@@ -9,9 +9,10 @@ export default (props) => {
   // thus when a user selects a new subway line to view, the component passes the new filter value
   // to the parent component, Map, which reloads the GeoJSON data with the current filter value
   return (
-    <div className="filterCities">
+      <div className="filterCities">
       <h3>Cena</h3>
-      <select defaultValue="*"
+
+      <select class="form-control selcls" defaultValue="*"
         type="select"
         name="filterlines"
         onChange={(e) => filterPrices(e)}>
