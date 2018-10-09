@@ -219,7 +219,6 @@ class Map extends Component {
         {
           /* render the Filter component only after the subwayLines array has been created */
             <Filter
-                curFilter={priceFilter}
                 filterPrices={this.updateMap} />
         }
         <div ref={(node) => this._mapNode = node} id="map" />

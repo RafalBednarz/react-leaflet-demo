@@ -12,7 +12,7 @@ export default (props) => {
       <div className="filterCities">
       <h3>Cena</h3>
 
-      <select class="form-control selcls" defaultValue="*"
+      <select className="form-control selcls" defaultValue="*"
         type="select"
         name="filterlines"
         onChange={(e) => filterPrices(e)}>

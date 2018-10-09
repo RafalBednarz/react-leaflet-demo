@@ -4,11 +4,9 @@ html, body {
   height: 100%;
   width: 100%;
 }
-#root, #map, #mapUI {
+#root, #map, #mapUI, #appWrapper, #mapp {
   width: inherit;
   height: inherit;
-  background-color: #FFF;
-  height: 90%;
 }
 .filterCities {
   position: absolute;
