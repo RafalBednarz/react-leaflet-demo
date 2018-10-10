@@ -5,8 +5,6 @@ import 'leaflet/dist/leaflet.css';
 // using webpack json loader we can import our geojson file like this
 //import geojson from 'json!./rental_locations.geojson';
 
-import Filter from './Filter';
-
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
 let config = {};
@@ -75,9 +73,12 @@ class Map extends Component {
 
     // check to see if the subway lines filter has changed
       console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
-    if (this.state.priceFilter !== prevState.priceFilter) {
-      // filter / re-render the geojson overlay
+      //this.state.priceFilter = this.props.priceFilter;
+      console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
+      if (this.props.priceFilter !== prevState.priceFilter) {
+          console.log("filter ");
       this.filterGeoJSONLayer();
+      this.state.priceFilter = this.props.priceFilter;
     }
 
 
@@ -106,7 +107,7 @@ class Map extends Component {
       console.log("entered updateMap");
     let priceUpTo = e.target.value;
     // change the subway line filter
-    if (priceUpTo === "All lines") {
+    if (priceUpTo === "Wszystkie") {
       priceUpTo = "*";
     }
 
@@ -161,8 +162,8 @@ class Map extends Component {
       console.log("entered filterFeatures");
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
-    if (this.state.priceFilter === '*' || feature.properties.PRICE < this.state.priceFilter) {
-        console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.state.priceFilter);
+    if (this.props.priceFilter === '*' || feature.properties.PRICE < this.props.priceFilter) {
+        console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.props.priceFilter);
       return true;
     }
   }
@@ -213,16 +214,8 @@ class Map extends Component {
   }
 
   render() {
-    const { priceFilter } = this.state;
     return (
-      <div id="mapUI">
-        {
-          /* render the Filter component only after the subwayLines array has been created */
-            <Filter
-                filterPrices={this.updateMap} />
-        }
-        <div ref={(node) => this._mapNode = node} id="map" />
-      </div>
+      <div ref={(node) => this._mapNode = node} id="mapUI" />
     );
   }
 }

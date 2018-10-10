@@ -415,3 +415,5 @@ npm install bootstrap
 
 ```
 [Bootstrap and React](https://blog.logrocket.com/how-to-use-bootstrap-with-react-a354715d1121)
+
+* [pass properties between siblings](https://codeburst.io/no-redux-strategy-for-siblings-communication-3db543538959)
