@@ -18,7 +18,7 @@
     {
       "type": "Feature",
       "properties": {
-        "NAME": "Mieszkanie 100m2 na pokoje wynajme",
+        "NAME": "Mieszkanie 100m2 na pokoje wynajem",
         "CITY": "KRAKOW"
       },
       "geometry": {

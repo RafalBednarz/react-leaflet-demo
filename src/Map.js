@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
-// using webpack json loader we can import our geojson file like this
-//import geojson from 'json!./rental_locations.geojson';
 
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
@@ -41,7 +39,6 @@ class Map extends Component {
       priceFilter: '*',
     };
     this._mapNode = null;
-    this.updateMap = this.updateMap.bind(this);
     this.onEachFeature = this.onEachFeature.bind(this);
     this.pointToLayer = this.pointToLayer.bind(this);
     this.filterFeatures = this.filterFeatures.bind(this);
@@ -73,15 +70,10 @@ class Map extends Component {
 
     // check to see if the subway lines filter has changed
       console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
-      //this.state.priceFilter = this.props.priceFilter;
-      console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
       if (this.props.priceFilter !== prevState.priceFilter) {
-          console.log("filter ");
       this.filterGeoJSONLayer();
       this.state.priceFilter = this.props.priceFilter;
     }
-
-
   }
 
   componentWillUnmount() {
@@ -100,21 +92,6 @@ class Map extends Component {
           )
               .catch(error => alert('failed to fetch data', error));
       console.log("this geojson " + this.state.geojson);
-  }
-
-
-  updateMap(e) {
-      console.log("entered updateMap");
-    let priceUpTo = e.target.value;
-    // change the subway line filter
-    if (priceUpTo === "Wszystkie") {
-      priceUpTo = "*";
-    }
-
-    // update our state with the new filter value
-    this.setState({
-      priceFilter: priceUpTo
-    });
   }
 
   addGeoJSONLayer(geojson) {
@@ -145,7 +122,6 @@ class Map extends Component {
           this.zoomToFeature(this.state.geojsonLayer);
       }
   }
-
 
   zoomToFeature(target) {
       console.log("entered zoomToFeature");

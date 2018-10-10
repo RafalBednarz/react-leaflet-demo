@@ -8,32 +8,3 @@ html, body {
   width: inherit;
   height: inherit;
 }
-.filterCities {
-  position: absolute;
-  top: 10px;
-  z-index: 10;
-  width: 200px;
-  height: auto;
-  background: hsla(0,100%,100%,0.8);
-  margin: 10px;
-  font-family: sans-serif;
-  font-size: 13px;
-  padding: 5px;
-  padding-bottom: 10px;
-  border-radius: 5px;
-}
-.filterCities hr {
-  border: 1px solid #FFF;
-  margin: 5px;
-}
-.filterCities h3 {
-  margin-top: 0;
-  padding-left: 5px;
-}
-.filterCities p {
-  padding-left: 5px;
-}
-.filterCities select {
-  display: block;
-  margin: 0 auto;
-}
