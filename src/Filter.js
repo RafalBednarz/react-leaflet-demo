@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 
-// the UI component for filtering the subway entrances by subway line
 class Filter extends Component {
-    getContent(event) {
-        this.props.callback(event.target.value);
-    }
+  getContent(event) {
+    this.props.callback(event.target.value);
+  }
 
-  // this is the JSX that will become the Filter UI in the DOM, notice it looks pretty similar to HTML
-  // notice in the select element onChange is set to the updateFilter method
-  // thus when a user selects a new subway line to view, the component passes the new filter value
-  // to the parent component, Map, which reloads the GeoJSON data with the current filter value
-    render() {
-        return (
+  render() {
+    return (
             <div className="filterCities">
                 <h3>Cena</h3>
 
@@ -26,8 +21,7 @@ class Filter extends Component {
                 </select>
             </div>
         );
-    }
+  }
 
 }
 export default Filter;
-
