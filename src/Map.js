@@ -46,21 +46,21 @@ class Map extends Component {
   }
 
   componentDidMount() {
-      console.log("entered componentDidMount");
-      this.getData();
-      console.log("after getData");
+    console.log("entered componentDidMount");
+    this.getData();
+    console.log("after getData");
     // create the Leaflet map object
     if (!this.state.map) this.init(this._mapNode);
-      console.log("add Marker");
+    console.log("add Marker");
     //this.addMarker();
-      console.log("finished componentDidMount");
+    console.log("finished componentDidMount");
   }
 
   componentDidUpdate(prevProps, prevState) {
-      console.log("entered componentDidUpdate");
-      console.log("this geojson" + this.state.geojson);
-      console.log("this state map " + this.state.map);
-      console.log("this geojsonlayer " + this.state.geojsonLayer);
+    console.log("entered componentDidUpdate");
+    console.log("this geojson" + this.state.geojson);
+    console.log("this state map " + this.state.map);
+    console.log("this geojsonlayer " + this.state.geojsonLayer);
     // code to run when the component receives new props or state
     // check to see if geojson is stored, map is created, and geojson overlay needs to be added
     if (this.state.geojson && this.state.map && !this.state.geojsonLayer) {
@@ -69,33 +69,33 @@ class Map extends Component {
     }
 
     // check to see if the subway lines filter has changed
-      console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
-      if (this.props.priceFilter !== prevState.priceFilter) {
+    console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
+    if (this.props.priceFilter !== prevState.priceFilter) {
       this.filterGeoJSONLayer();
       this.state.priceFilter = this.props.priceFilter;
     }
   }
 
   componentWillUnmount() {
-      console.log("entered componentWillUnmount");
+    console.log("entered componentWillUnmount");
     // code to run just before unmounting the component
     // this destroys the Leaflet map object & related event listeners
     this.state.map.remove();
   }
 
   getData() {
-      console.log("entered getData");
-      fetch('http://localhost:8080/locations')
+    console.log("entered getData");
+    fetch('http://localhost:8080/locations')
           .then(response => response.json())
           .then(parsedJSON =>
               this.setState({geojson: parsedJSON})
           )
               .catch(error => alert('failed to fetch data', error));
-      console.log("this geojson " + this.state.geojson);
+    console.log("this geojson " + this.state.geojson);
   }
 
   addGeoJSONLayer(geojson) {
-      console.log("entered addGeoJSONLayer");
+    console.log("entered addGeoJSONLayer");
     // create a native Leaflet GeoJSON SVG Layer to add as an interactive overlay to the map
     // an options object is passed to define functions for customizing the layer
     const geojsonLayer = L.geoJson(geojson, {
@@ -112,19 +112,19 @@ class Map extends Component {
   }
 
   filterGeoJSONLayer() {
-      console.log("entered filterGeoJSONLayer");
+    console.log("entered filterGeoJSONLayer");
     // clear the geojson layer of its data
     this.state.geojsonLayer.clearLayers();
     // re-add the geojson so that it filters out subway lines which do not match state.filter
     this.state.geojsonLayer.addData(this.state.geojson);
     // fit the map to the new geojson layer's geographic extent
-      if(this.state.geojsonlayer) {
-          this.zoomToFeature(this.state.geojsonLayer);
-      }
+    if(this.state.geojsonlayer) {
+      this.zoomToFeature(this.state.geojsonLayer);
+    }
   }
 
   zoomToFeature(target) {
-      console.log("entered zoomToFeature");
+    console.log("entered zoomToFeature");
     // pad fitBounds() so features aren't hidden under the Filter UI element
     var fitBoundsParams = {
       paddingTopLeft: [200,10],
@@ -135,17 +135,17 @@ class Map extends Component {
   }
 
   filterFeatures(feature, layer) {
-      console.log("entered filterFeatures");
+    console.log("entered filterFeatures");
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
     if (this.props.priceFilter === '*' || feature.properties.PRICE < this.props.priceFilter) {
-        console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.props.priceFilter);
+      console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.props.priceFilter);
       return true;
     }
   }
 
   pointToLayer(feature, latlng) {
-      console.log("entered pointToLayer");
+    console.log("entered pointToLayer");
     // renders our GeoJSON points as circle markers, rather than Leaflet's default image markers
     // parameters to style the GeoJSON markers
     var markerParams = {
@@ -161,7 +161,7 @@ class Map extends Component {
   }
 
   onEachFeature(feature, layer) {
-      console.log("entered onEachFeature");
+    console.log("entered onEachFeature");
     if (feature.properties && feature.properties.NAME && feature.properties.CITY) {
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
@@ -175,7 +175,7 @@ class Map extends Component {
   }
 
   init(id) {
-      console.log("entered init");
+    console.log("entered init");
     if (this.state.map) return;
     // this function creates the Leaflet map object and is called after the Map component mounts
     let map = L.map(id, config.params);
