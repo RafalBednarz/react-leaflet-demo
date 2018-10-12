@@ -3,7 +3,6 @@ import Map from './Map';
 import Button from './Button';
 import Filter from './Filter';
 
-// App component
 class App extends Component {
 
     constructor(){

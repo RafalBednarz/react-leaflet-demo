@@ -69,7 +69,8 @@
     "popper.js": "^1.14.4",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "reactstrap": "^6.5.0"
+    "reactstrap": "^6.5.0",
+    "redux-form": "^7.4.2"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"

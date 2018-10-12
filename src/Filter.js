@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 // the UI component for filtering the subway entrances by subway line
 class Filter extends Component {
@@ -29,9 +28,6 @@ class Filter extends Component {
         );
     }
 
-}
-Filter.protoTypes = {
-    callback : PropTypes.func,
 }
 export default Filter;
 
