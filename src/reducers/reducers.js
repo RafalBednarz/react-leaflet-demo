@@ -3,7 +3,7 @@ import {
   REQUEST_LOCATIONS,
   RECEIVE_LOCATIONS,
   SELECT_PRICE
-} from './actions';
+} from '../actions/actions';
 
 function selectedLocation(state = 'reactjs', action) {
   switch (action.type) {
