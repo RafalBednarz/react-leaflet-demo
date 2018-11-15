@@ -5,14 +5,15 @@ import Filter from './Filter';
 
 class App extends Component {
 
-  constructor(){
-    super();
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.state= {
       priceFilter : "*"
     };
   }
 
-  updateMap(params) {
+  handleChange(params) {
     console.log('App updateMap - price filter: ' + params);
     this.setState({
       priceFilter: params
@@ -27,7 +28,7 @@ class App extends Component {
                         <Map priceFilter={this.state.priceFilter}/>
                     </div>
                     <div className="col-3">
-                        <Filter callback={this.updateMap.bind(this)} />
+                        <Filter callback={this.handleChange.bind(this)} />
                         <Button/>
                     </div>
                 </div>
