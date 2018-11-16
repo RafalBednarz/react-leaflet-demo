@@ -1,11 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Root from './Root.js';
-import './index.css'; // postCSS import of CSS module
+import { render } from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import reducer from './reducers/reducers';
+import App from './App';
 
+const middleware = [ thunk ];
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(createLogger());
+}
 
-ReactDOM.render(
-  <Root />,
+const store = createStore(
+  reducer,
+  applyMiddleware(...middleware)
+);
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );

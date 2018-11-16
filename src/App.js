@@ -7,6 +7,8 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    console.log('constructor');
+    console.log(props);
     this.handleChange = this.handleChange.bind(this);
     this.state= {
       priceFilter : "*"
