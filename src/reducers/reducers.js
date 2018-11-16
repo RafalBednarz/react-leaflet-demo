@@ -1,21 +1,12 @@
 import { combineReducers } from 'redux';
 import {
   REQUEST_LOCATIONS,
-  RECEIVE_LOCATIONS,
-  SELECT_PRICE
+  RECEIVE_LOCATIONS
 } from '../actions/actions';
-
-function selectedLocation(state = 'reactjs', action) {
-  switch (action.type) {
-    case SELECT_PRICE:
-      return action.price;
-    default:
-      return state;
-  }
-}
 
 function locations(
   state = {
+    price: '*',
     isFetching: false,
     items: []
   },
@@ -23,35 +14,19 @@ function locations(
 ) {
   switch (action.type) {
     case REQUEST_LOCATIONS:
-      return Object.assign({}, state, {
+      return {
+        price: '*',
         isFetching: true,
-      });
+      };
     case RECEIVE_LOCATIONS:
-      return Object.assign({}, state, {
+      return {
+        price: action.price,
         isFetching: false,
         items: action.posts,
-        lastUpdated: action.receivedAt
-      });
+      };
     default:
       return state;
   }
 }
 
-function locationsBySubreddit(state = {}, action) {
-  switch (action.type) {
-    case RECEIVE_LOCATIONS:
-    case REQUEST_LOCATIONS:
-      return Object.assign({}, state, {
-        [action.price]: posts(state[action.price], action)
-      });
-    default:
-      return state;
-  }
-}
-
-const rootReducer = combineReducers({
-  locationsBySubreddit,
-  selectedLocation
-});
-
-export default rootReducer;
+export default locations;

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Map from './Map';
 import Button from './Button';
 import Filter from './Filter';
+import { fetchLocations } from './actions/actions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     console.log('constructor');
@@ -13,6 +15,18 @@ class App extends Component {
     this.state= {
       priceFilter : "*"
     };
+  }
+
+  static propTypes = {
+    price: PropTypes.string.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    items: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired
+  }
+
+  componentDidMount() {
+    const { dispatch, price } = this.props;
+    dispatch(fetchLocations(price));
   }
 
   handleChange(params) {
@@ -39,4 +53,23 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+
+  const {
+    price,
+    isFetching,
+    items: locations
+  } = locations || {
+    price: '*',
+    isFetching: false,
+    items: []
+  }
+;
+  return {
+    price,
+    isFetching,
+    locations
+  };
+};
+
+export default connect(mapStateToProps)(App);

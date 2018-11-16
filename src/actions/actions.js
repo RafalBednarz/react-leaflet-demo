@@ -26,7 +26,6 @@ function receiveLocations(price, json) {
   return {
     type: RECEIVE_LOCATIONS,
     price,
-    items: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
+    items: json.data.children.map(child => child.data)
   };
 }

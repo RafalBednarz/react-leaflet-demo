@@ -6,6 +6,8 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducer from './reducers/reducers';
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css'; // postCSS import of CSS module
 
 const middleware = [ thunk ];
 if (process.env.NODE_ENV !== 'production') {
