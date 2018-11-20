@@ -20,7 +20,7 @@ class App extends Component {
   static propTypes = {
     price: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    items: PropTypes.array.isRequired,
+    locations: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 

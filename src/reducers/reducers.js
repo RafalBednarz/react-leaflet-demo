@@ -22,7 +22,7 @@ function locations(
       return {
         price: action.price,
         isFetching: false,
-        items: action.posts,
+        items: action.locations,
       };
     default:
       return state;
