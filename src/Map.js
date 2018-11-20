@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import L from 'leaflet';
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
+import { connect } from 'react-redux';
 
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
@@ -36,7 +37,7 @@ class Map extends Component {
       tileLayer: null,
       geojsonLayer: null,
       geojson: null, // json from API
-      priceFilter: '*',
+      price: '*',
     };
     this._mapNode = null;
     this.onEachFeature = this.onEachFeature.bind(this);
@@ -58,6 +59,7 @@ class Map extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     console.log("entered componentDidUpdate");
+    console.log("mapStateToProps" + this.props.price);
     console.log("this geojson" + this.state.geojson);
     console.log("this state map " + this.state.map);
     console.log("this geojsonlayer " + this.state.geojsonLayer);
@@ -69,10 +71,10 @@ class Map extends Component {
     }
 
     // check to see if the subway lines filter has changed
-    console.log("this priceFilter " + this.state.priceFilter + " previous priceFilter " + prevState.priceFilter);
-    if (this.props.priceFilter !== prevState.priceFilter) {
+    console.log("this priceFilter " + this.props.price + " previous priceFilter " + prevState.price);
+    if (this.props.price !== prevState.price) {
       this.filterGeoJSONLayer();
-      this.state.priceFilter = this.props.priceFilter;
+      this.state.price = this.props.price;
     }
   }
 
@@ -138,8 +140,8 @@ class Map extends Component {
     console.log("entered filterFeatures");
     // filter the subway entrances based on the map's current search filter
     // returns true only if the filter value matches the value of feature.properties.LINE
-    if (this.props.priceFilter === '*' || feature.properties.PRICE < this.props.priceFilter) {
-      console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.props.priceFilter);
+    if (this.props.price === '*' || feature.properties.PRICE < this.props.price) {
+      console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.props.price);
       return true;
     }
   }
@@ -195,5 +197,8 @@ class Map extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  price: state.price
+});
 
-export default Map;
+export default connect(mapStateToProps)(Map);

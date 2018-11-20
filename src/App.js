@@ -10,9 +10,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.state= {
-      priceFilter : "*"
-    };
   }
 
   static propTypes = {
@@ -37,7 +34,7 @@ class App extends Component {
             <div className="container" id="appWrapper">
                 <div className="row" id="mapp">
                     <div className="col-9" id="mapUI">
-                        <Map priceFilter={this.state.priceFilter}/>
+                        <Map priceFilter={this.props.price}/>
                     </div>
                     <div className="col-3">
                         <Filter value={"cena"}
