@@ -15,7 +15,7 @@ function locations(
   switch (action.type) {
     case REQUEST_LOCATIONS:
       return {
-        price: '*',
+        price: action.price,
         isFetching: true,
       };
     case RECEIVE_LOCATIONS:

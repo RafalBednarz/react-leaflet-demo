@@ -1,29 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Filter extends Component {
-  getContent(event) {
-    this.props.callback(event.target.value);
-  }
-                //<form onSubmit={this.getContent.bind(this)}>
-  render() {
-    return (
-            <div className="filterCities">
-                <h3>Cena</h3>
+const Filter = ({ value, onChange, options}) => (
 
-                  <select className="form-control selcls" defaultValue="*"
-                          type="select"
-                          name="filterlines"
-                          onChange={this.getContent.bind(this)}
-                          >
-                      <option value="*" key="1">Wszytkie</option>
-                      <option value="150" key="2">Do 150</option>
-                      <option value="250" key="3">Do 250</option>
-                      <option value="350" key="4">Do 350</option>
-                  </select>
+    <div className="filterCities">
+        <h3>{value}</h3>
+          <select className="form-control selcls"
+                  type="select"
+                  name="filterlines"
+                  onChange={e => onChange(e.target.value)}
+                  value={value}>
+                  {options.map(option =>
+                    <option value={option} key={option}>
+                      {option}
+                    </option>)
+                  }
+          </select>
 
-            </div>
-        );
-  }
+    </div>
+);
 
-}
 export default Filter;

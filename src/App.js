@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log('constructor');
-    console.log(props);
     this.handleChange = this.handleChange.bind(this);
     this.state= {
       priceFilter : "*"
@@ -29,11 +27,9 @@ class App extends Component {
     dispatch(fetchLocations(price));
   }
 
-  handleChange(params) {
-    console.log('App updateMap - price filter: ' + params);
-    this.setState({
-      priceFilter: params
-    });
+  handleChange(newPrice) {
+    const { dispatch, price } = this.props;
+    dispatch(fetchLocations(newPrice));
   }
 
   render() {
@@ -44,7 +40,9 @@ class App extends Component {
                         <Map priceFilter={this.state.priceFilter}/>
                     </div>
                     <div className="col-3">
-                        <Filter callback={this.handleChange.bind(this)} />
+                        <Filter value={"cena"}
+                                onChange={this.handleChange}
+                                options={['*', '150', '250', '350']} />
                         <Button/>
                     </div>
                 </div>
