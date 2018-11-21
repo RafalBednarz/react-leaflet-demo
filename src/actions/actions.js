@@ -9,7 +9,7 @@ export const RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS'; //when request finished
 export function fetchLocations(price) {
   return dispatch => {
     dispatch(requestLocations(price));
-    return fetch(`http://localhost:8080/locations`)
+    return fetch(`http://localhost:8080/locations?price=${price}`)
       .then(response => response.json())
       .then(json => dispatch(receiveLocations(price, json)));
   };

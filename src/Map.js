@@ -37,7 +37,6 @@ class Map extends Component {
       tileLayer: null,
       geojsonLayer: null,
       geojson: null, // json from API
-      price: '*',
     };
     this._mapNode = null;
     this.onEachFeature = this.onEachFeature.bind(this);
@@ -46,9 +45,6 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    console.log("entered componentDidMount");
-    this.getData();
-    console.log("after getData");
     // create the Leaflet map object
     if (!this.state.map) this.init(this._mapNode);
     console.log("finished componentDidMount");
@@ -82,17 +78,6 @@ class Map extends Component {
     // code to run just before unmounting the component
     // this destroys the Leaflet map object & related event listeners
     this.state.map.remove();
-  }
-
-  getData() {
-    console.log("entered getData");
-    fetch('http://localhost:8080/locations')
-          .then(response => response.json())
-          .then(parsedJSON =>
-              this.setState({geojson: parsedJSON})
-          )
-              .catch(error => alert('failed to fetch data', error));
-    console.log("this geojson " + this.state.geojson);
   }
 
   addGeoJSONLayer(geojson) {
