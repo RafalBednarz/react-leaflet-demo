@@ -23,11 +23,9 @@ function requestLocations(price) {
 }
 
 function receiveLocations(price, json) {
-  console.log('---json');
-  console.log(json);
   return {
     type: RECEIVE_LOCATIONS,
     price,
-    items: json.features.map(child => child.data)
+    geojson: json
   };
 }

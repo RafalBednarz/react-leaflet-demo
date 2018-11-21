@@ -42,7 +42,6 @@ class Map extends Component {
     this._mapNode = null;
     this.onEachFeature = this.onEachFeature.bind(this);
     this.pointToLayer = this.pointToLayer.bind(this);
-    this.filterFeatures = this.filterFeatures.bind(this);
     this.filterGeoJSONLayer = this.filterGeoJSONLayer.bind(this);
   }
 
@@ -52,27 +51,27 @@ class Map extends Component {
     console.log("after getData");
     // create the Leaflet map object
     if (!this.state.map) this.init(this._mapNode);
-    console.log("add Marker");
-    //this.addMarker();
     console.log("finished componentDidMount");
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("entered componentDidUpdate");
+    console.log("------------entered componentDidUpdate");
     console.log("mapStateToProps" + this.props.price);
-    console.log("this geojson" + this.state.geojson);
-    console.log("this state map " + this.state.map);
-    console.log("this geojsonlayer " + this.state.geojsonLayer);
+    console.log("is fetching " + this.props.isFetching);
+    console.log("+++" + this.props.geojson);
+    //console.log("this geojson" + this.state.geojson);
+    //console.log("this state map " + this.state.map);
+    //console.log("this geojsonlayer " + this.state.geojsonLayer);
     // code to run when the component receives new props or state
     // check to see if geojson is stored, map is created, and geojson overlay needs to be added
-    if (this.state.geojson && this.state.map && !this.state.geojsonLayer) {
+    if (this.props.geojson && this.state.map && !this.state.geojsonLayer) {
       // add the geojson overlay
-      this.addGeoJSONLayer(this.state.geojson);
+      this.addGeoJSONLayer(this.props.geojson);
     }
 
     // check to see if the subway lines filter has changed
     console.log("this priceFilter " + this.props.price + " previous priceFilter " + prevState.price);
-    if (this.props.price !== prevState.price) {
+    if (this.props.price !== prevState.price && this.props.isFetching == false) {
       this.filterGeoJSONLayer();
       this.state.price = this.props.price;
     }
@@ -103,7 +102,6 @@ class Map extends Component {
     const geojsonLayer = L.geoJson(geojson, {
       onEachFeature: this.onEachFeature,
       pointToLayer: this.pointToLayer,
-      filter: this.filterFeatures
     });
     // add our GeoJSON layer to the Leaflet map object
     geojsonLayer.addTo(this.state.map);
@@ -118,7 +116,7 @@ class Map extends Component {
     // clear the geojson layer of its data
     this.state.geojsonLayer.clearLayers();
     // re-add the geojson so that it filters out subway lines which do not match state.filter
-    this.state.geojsonLayer.addData(this.state.geojson);
+    this.state.geojsonLayer.addData(this.props.geojson);
     // fit the map to the new geojson layer's geographic extent
     if(this.state.geojsonlayer) {
       this.zoomToFeature(this.state.geojsonLayer);
@@ -134,16 +132,6 @@ class Map extends Component {
     };
     // set the map's center & zoom so that it fits the geographic extent of the layer
     this.state.map.fitBounds(target.getBounds(), fitBoundsParams);
-  }
-
-  filterFeatures(feature, layer) {
-    console.log("entered filterFeatures");
-    // filter the subway entrances based on the map's current search filter
-    // returns true only if the filter value matches the value of feature.properties.LINE
-    if (this.props.price === '*' || feature.properties.PRICE < this.props.price) {
-      console.log("entered if condition. price: " + feature.properties.PRICE + " price filter " + this.props.price);
-      return true;
-    }
   }
 
   pointToLayer(feature, latlng) {
@@ -197,8 +185,11 @@ class Map extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
-  price: state.price
+  price: state.price,
+  isFetching: state.isFetching,
+  geojson: state.geojson
 });
 
 export default connect(mapStateToProps)(Map);

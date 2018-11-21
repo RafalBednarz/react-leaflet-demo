@@ -5,11 +5,7 @@ import {
 } from '../actions/actions';
 
 function locations(
-  state = {
-    price: '*',
-    isFetching: false,
-    items: []
-  },
+  state = { price: '*', isFetching: false },
   action
 ) {
   switch (action.type) {
@@ -22,7 +18,7 @@ function locations(
       return {
         price: action.price,
         isFetching: false,
-        items: action.locations,
+        geojson: action.geojson,
       };
     default:
       return state;

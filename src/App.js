@@ -15,7 +15,7 @@ class App extends Component {
   static propTypes = {
     price: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    locations: PropTypes.array.isRequired,
+    //geojson: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -53,17 +53,16 @@ const mapStateToProps = state => {
   const {
     price,
     isFetching,
-    items: locations
-  } = locations || {
+    geojson
+  } = geojson || {
     price: '*',
-    isFetching: false,
-    items: []
+    isFetching: false
   }
 ;
   return {
     price,
     isFetching,
-    locations
+    geojson
   };
 };
 
