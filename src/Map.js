@@ -67,7 +67,7 @@ class Map extends Component {
 
     // check to see if the subway lines filter has changed
     console.log("this priceFilter " + this.props.price + " previous priceFilter " + prevState.price);
-    if (this.props.price !== prevState.price && this.props.isFetching == false) {
+    if (this.props.price !== prevState.price && this.props.isFetching === false) {
       this.filterGeoJSONLayer();
       this.state.price = this.props.price;
     }

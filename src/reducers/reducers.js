@@ -1,11 +1,12 @@
-import { combineReducers } from 'redux';
 import {
   REQUEST_LOCATIONS,
   RECEIVE_LOCATIONS
-} from '../actions/actions';
+} from '../actions/actions'
+import { reducer as reduxFormReducer } from 'redux-form'
+import { combineReducers } from 'redux'
 
 function locations(
-  state = { price: '*', isFetching: false },
+  state = { price: '', isFetching: false },
   action
 ) {
   switch (action.type) {
@@ -13,16 +14,20 @@ function locations(
       return {
         price: action.price,
         isFetching: true,
-      };
+      }
     case RECEIVE_LOCATIONS:
       return {
         price: action.price,
         isFetching: false,
         geojson: action.geojson,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export default locations;
+const reducer = combineReducers({
+  form: reduxFormReducer, // mounted under "form"
+  locations
+})
+export default reducer
