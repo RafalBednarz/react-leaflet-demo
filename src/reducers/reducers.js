@@ -6,7 +6,7 @@ import { reducer as reduxFormReducer } from 'redux-form'
 import { combineReducers } from 'redux'
 
 function locations(
-  state = { price: '', isFetching: false },
+  state = { isFetching: false },
   action
 ) {
   switch (action.type) {

@@ -37,7 +37,6 @@ class Map extends Component {
       tileLayer: null,
       geojsonLayer: null,
       geojson: null, // json from API
-      price: '*',
     }
     this._mapNode = null
     this.onEachFeature = this.onEachFeature.bind(this)
@@ -69,7 +68,9 @@ class Map extends Component {
     // check to see if the subway lines filter has changed
     console.log("this priceFilter " + this.props.price + " previous priceFilter " + prevState.price)
     if (this.props.price !== prevState.price && this.props.isFetching === false) {
-      this.filterGeoJSONLayer()
+      if(prevState.price) {
+        this.filterGeoJSONLayer()
+      }
       this.state.price = this.props.price
     }
   }
