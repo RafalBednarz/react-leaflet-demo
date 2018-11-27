@@ -173,7 +173,7 @@ class Map extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   price: state.locations.price,
   isFetching: state.locations.isFetching,
   geojson: state.locations.geojson

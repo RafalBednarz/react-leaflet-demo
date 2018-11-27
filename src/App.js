@@ -6,6 +6,7 @@ import { fetchLocations } from './actions/actions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -42,20 +43,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-
-  const {
-    price,
-    isFetching,
-    geojson
-  } = {
-    isFetching: false
-  }
-
-  return {
-    price,
-    isFetching,
-    geojson
-  }
+  const { price, isFetching, geojson } = { isFetching: false }
+  return { price, isFetching, geojson }
 }
 
 export default connect(mapStateToProps)(App)

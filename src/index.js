@@ -8,6 +8,14 @@ import reducer from './reducers/reducers'
 import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css' // postCSS import of CSS module
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
+import Locations from './Locations'
+
 
 const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
@@ -21,7 +29,14 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App />
+
+  <Router>
+  <Switch>
+    <Route path="/" component={App} exact={true}/>
+    <Route path="/singlelocation" component={Locations} />
+  </Switch>
+  </Router>
+
   </Provider>,
   document.getElementById('root')
 )
