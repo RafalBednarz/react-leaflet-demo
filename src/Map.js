@@ -76,7 +76,6 @@ class Map extends Component {
   }
 
   componentWillUnmount() {
-    console.log("entered componentWillUnmount")
     // code to run just before unmounting the component
     // this destroys the Leaflet map object & related event listeners
     this.state.map.remove()
@@ -142,7 +141,9 @@ class Map extends Component {
     if (feature.properties && feature.properties.NAME && feature.properties.CITY) {
 
       // assemble the HTML for the markers' popups (Leaflet's bindPopup method doesn't accept React JSX)
-      const popupContent = `<h3>${feature.properties.NAME}</h3>
+      const popupContent = `
+      <a target="_blank" rel="noopener noreferrer" href="singlelocation/123">${feature.properties.NAME}</a>
+      <h3>${feature.properties.NAME}</h3>
         <strong>Cena: </strong>${feature.properties.PRICE}`
 
       // add our popups
@@ -158,10 +159,8 @@ class Map extends Component {
     let map = L.map(id, config.params)
     L.control.zoom({ position: "bottomleft"}).addTo(map)
     L.control.scale({ position: "bottomleft"}).addTo(map)
-
     // a TileLayer is used as the "basemap"
     const tileLayer = L.tileLayer(config.tileLayer.uri, config.tileLayer.params).addTo(map)
-
     // set our state to include the tile layer
     this.setState({ map, tileLayer })
   }

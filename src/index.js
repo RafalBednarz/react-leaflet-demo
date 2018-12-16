@@ -11,7 +11,6 @@ import './index.css' // postCSS import of CSS module
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch
 } from 'react-router-dom'
 import Locations from './Locations'
@@ -33,7 +32,7 @@ render(
   <Router>
   <Switch>
     <Route path="/" component={App} exact={true}/>
-    <Route path="/singlelocation" component={Locations} />
+    <Route path="/singlelocation/:id" component={Locations} />
   </Switch>
   </Router>
 
