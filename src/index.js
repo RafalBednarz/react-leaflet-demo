@@ -13,7 +13,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import Locations from './Locations'
+import Locations from './advertisement/Locations'
 
 
 const middleware = [ thunk ]
