@@ -14,6 +14,7 @@ import {
   Switch
 } from 'react-router-dom'
 import Locations from './advertisement/Locations'
+import AddLocation from './AddLocation'
 
 
 const middleware = [ thunk ]
@@ -33,6 +34,7 @@ render(
   <Switch>
     <Route path="/" component={App} exact={true}/>
     <Route path="/singlelocation/:id" component={Locations} />
+    <Route path="/newlocation" component={AddLocation} />
   </Switch>
   </Router>
 
