@@ -13,7 +13,7 @@ module.exports = {
   parser: 'babel-eslint',
 
   // import plugin is termporarily disabled, scroll below to see why
-  plugins: [/*'import', */'flowtype', 'jsx-a11y', 'react'],
+  plugins: [/*='import', */'flowtype', 'jsx-a11y', 'react'],
 
   env: {
     browser: true,
@@ -28,7 +28,8 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
       generators: true,
-      experimentalObjectRestSpread: true
+      experimentalObjectRestSpread: true,
+      modules: true
     }
   },
 
@@ -193,4 +194,4 @@ module.exports = {
     'flowtype/require-valid-file-annotation': 'warn',
     'flowtype/use-flow-type': 'warn'
   }
-};
+}

@@ -1,9 +1,9 @@
-var path = require('path');
-var autoprefixer = require('autoprefixer');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-var paths = require('./paths');
+var path = require('path')
+var autoprefixer = require('autoprefixer')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+var paths = require('./paths')
 
 module.exports = {
   devtool: 'eval',
@@ -21,7 +21,7 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['', '.js', '.json'],
+    extensions: ['.js', '.json'],
     alias: {
       // This `alias` section can be safely removed after ejection.
       // We do this because `babel-runtime` may be inside `react-scripts`,
@@ -34,39 +34,37 @@ module.exports = {
       'babel-runtime/regenerator': require.resolve('babel-runtime/regenerator')
     }
   },
-  resolveLoader: {
-    root: paths.ownNodeModules,
-    moduleTemplates: ['*-loader']
-  },
+  //resolveLoader: {
+  //  root: paths.ownNodeModules,
+  //  moduleTemplates: ['*-loader']
+  //},
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'eslint',
+        loader: 'eslint-loader',
         include: paths.appSrc,
-      }
-    ],
-    loaders: [
+      },
       {
         test: /\.js$/,
         include: paths.appSrc,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: require('./babel.dev')
       },
       {
         test: /\.css$/,
         include: [paths.appSrc, paths.appNodeModules],
-        loader: 'style!css!postcss'
+        loader: 'style-loader!css-loader!postcss-loader'
       },
       {
         test: /\.json$/,
         include: [paths.appSrc, paths.appNodeModules],
-        loader: 'json'
+        loader: 'json-loader'
       },
       {
         test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)(\?.*)?$/,
         include: [paths.appSrc, paths.appNodeModules],
-        loader: 'file',
+        loader: 'file-loader',
         query: {
           name: 'static/media/[name].[ext]'
         }
@@ -74,20 +72,18 @@ module.exports = {
       {
         test: /\.(mp4|webm)(\?.*)?$/,
         include: [paths.appSrc, paths.appNodeModules],
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: 'static/media/[name].[ext]'
         }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ['eslint-loader']
       }
     ]
-  },
-  eslint: {
-    configFile: path.join(__dirname, 'eslint.js'),
-    useEslintrc: false
-  },
-  postcss: function() {
-    return [autoprefixer];
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -100,4 +96,4 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin()
   ]
-};
+}
