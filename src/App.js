@@ -27,18 +27,18 @@ class App extends Component {
 
   render() {
     return (
-            <div className="container" id="appWrapper">
-                <div className="row" id="mapp">
-                    <div className="col-9" id="mapUI">
-                        <Map/>
-                    </div>
-                    <div className="col-3">
-                        <Form onSubmit={this.handleChange} />
-                        <Button/>
-                    </div>
-                </div>
-            </div>
-        )
+      <div className="container" id="appWrapper">
+        <div className="row" id="mapp">
+          <div className="col-9" id="mapUI">
+            <Map/>
+          </div>
+          <div className="col-3">
+            <Form onSubmit={this.handleChange} />
+            <Button/>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
