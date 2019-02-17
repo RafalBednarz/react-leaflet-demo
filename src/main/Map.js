@@ -117,8 +117,8 @@ class Map extends Component {
       paddingBottomRight: [10,10]
     }
     // set the map's center & zoom so that it fits the geographic extent of the layer
-    this.state.map.setView(new L.LatLng(40.737, -73.923), 8)
-    //this.state.map.fitBounds(target.getBounds(), fitBoundsParams)
+    //this.state.map.setView(new L.LatLng(40.737, -73.923), 8)
+    this.state.map.fitBounds(target.getBounds(), fitBoundsParams)
   }
 
   pointToLayer(feature, latlng) {
@@ -174,6 +174,7 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => ({
+  city: state.locations.city,
   price: state.locations.price,
   isFetching: state.locations.isFetching,
   geojson: state.locations.geojson

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers/reducers'
-import App from './App'
+import MainPage from './main/MainPage'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css' // postCSS import of CSS module
 import {
@@ -32,7 +32,7 @@ render(
 
   <Router>
   <Switch>
-    <Route path="/" component={App} exact={true}/>
+    <Route path="/" component={MainPage} exact={true}/>
     <Route path="/singlelocation/:id" component={Locations} />
     <Route path="/newlocation" component={AddLocation} />
   </Switch>

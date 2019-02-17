@@ -7,6 +7,11 @@ export const MY_CITIES = [
   {city: 'Rzeszów',
   lon: 21.999121,
   lat: 50.041187,
+  zoom: 9},
+
+  {city: 'Brzesko',
+  lon: 21.999121,
+  lat: 50.041187,
   zoom: 9}
 
 ]

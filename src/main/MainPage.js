@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import Map from './main/Map'
-import Button from './main/Button'
-import Form from './main/Form'
-import { fetchLocations } from './actions/actions'
+import Map from './Map'
+import Button from './Button'
+import Form from './Form'
+import { fetchLocations } from '../actions/actions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-class App extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
@@ -46,4 +46,4 @@ const mapStateToProps = state => {
   return { price, isFetching, geojson }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(MainPage)
