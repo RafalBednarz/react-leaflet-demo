@@ -6,7 +6,6 @@ import { fetchLocations } from './actions/actions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -29,12 +28,12 @@ class App extends Component {
     return (
       <div className="container" id="appWrapper">
         <div className="row" id="mapp">
-          <div className="col-9" id="mapUI">
-            <Map/>
-          </div>
           <div className="col-3">
             <Form onSubmit={this.handleChange} />
             <Button/>
+          </div>
+          <div className="col-9" id="mapUI">
+            <Map/>
           </div>
         </div>
       </div>

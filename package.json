@@ -74,6 +74,7 @@
     "postcss-merge-rules": "^4.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
+    "react-bootstrap-typeahead": "^3.3.4",
     "react-dom": "^16.7.0",
     "react-image-gallery": "^0.8.12",
     "react-leaflet": "^2.1.4",
