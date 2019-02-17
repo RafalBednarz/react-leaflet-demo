@@ -3,6 +3,7 @@ import L from 'leaflet'
 // postCSS import of Leaflet's CSS
 import 'leaflet/dist/leaflet.css'
 import { connect } from 'react-redux'
+import {MY_CITIES} from '../Cities'
 
 // store the map configuration properties in an object,
 // we could also move this to a separate file & import it if desired.
@@ -54,6 +55,7 @@ class Map extends Component {
     console.log("------------entered componentDidUpdate")
     console.log("mapStateToProps" + this.props.price)
     console.log("is fetching " + this.props.isFetching)
+    console.log("City " + this.props.city)
     console.log("+++" + this.props.geojson)
     //console.log("this geojson" + this.state.geojson);
     //console.log("this state map " + this.state.map);
@@ -111,14 +113,12 @@ class Map extends Component {
 
   zoomToFeature(target) {
     console.log("entered zoomToFeature")
-    // pad fitBounds() so features aren't hidden under the Filter UI element
-    var fitBoundsParams = {
-      paddingTopLeft: [200,10],
-      paddingBottomRight: [10,10]
-    }
-    // set the map's center & zoom so that it fits the geographic extent of the layer
-    //this.state.map.setView(new L.LatLng(40.737, -73.923), 8)
-    this.state.map.fitBounds(target.getBounds(), fitBoundsParams)
+    let result = MY_CITIES.filter(obj => {
+      return obj.city === this.props.city
+    })
+    console.log(result)
+    console.log(result[0].lat)
+    this.state.map.setView(new L.LatLng(result[0].lat, result[0].lon), result[0].zoom)
   }
 
   pointToLayer(feature, latlng) {

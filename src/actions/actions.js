@@ -6,25 +6,27 @@ export const RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS' //when request finished
 
 // Action creators - functions that create actions.
 // In Redux, action creators simply return an action
-export function fetchLocations(price) {
+export function fetchLocations(city, price) {
   return dispatch => {
-    dispatch(requestLocations(price))
+    dispatch(requestLocations(city, price))
     return fetch(`http://localhost:8080/locations?price=${price}`)
       .then(response => response.json())
-      .then(json => dispatch(receiveLocations(price, json)))
+      .then(json => dispatch(receiveLocations(city, price, json)))
   }
 }
 
-function requestLocations(price) {
+function requestLocations(city, price) {
   return {
     type: REQUEST_LOCATIONS,
+    city,
     price
   }
 }
 
-function receiveLocations(price, json) {
+function receiveLocations(city, price, json) {
   return {
     type: RECEIVE_LOCATIONS,
+    city,
     price,
     geojson: json
   }

@@ -41,7 +41,7 @@ export class AutosuggestCity extends React.Component {
   }
 
   onChange = (event, { newValue }) => {
-    console.log("onchange: " + newValue)
+    //console.log("onchange: " + newValue)
     this.setState({
       value: newValue
     });
@@ -50,7 +50,7 @@ export class AutosuggestCity extends React.Component {
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
-    console.log("onSuggestionsFetchRequested: " + value)
+    //console.log("onSuggestionsFetchRequested: " + value)
     this.setState({
       suggestions: getSuggestions(value)
     });

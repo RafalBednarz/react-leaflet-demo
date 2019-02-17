@@ -23,7 +23,7 @@ class MainPage extends Component {
     console.log(newPrice)
     console.log("filterlines: " + newPrice.filterlines)
     console.log("filterCity: " + newPrice.filtercity)
-    dispatch(fetchLocations(newPrice.filterlines))
+    dispatch(fetchLocations(newPrice.filtercity, newPrice.filterlines))
   }
 
   render() {

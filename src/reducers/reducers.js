@@ -12,11 +12,13 @@ function locations(
   switch (action.type) {
     case REQUEST_LOCATIONS:
       return {
+        city: action.city,
         price: action.price,
         isFetching: true,
       }
     case RECEIVE_LOCATIONS:
       return {
+        city: action.city,
         price: action.price,
         isFetching: false,
         geojson: action.geojson,
