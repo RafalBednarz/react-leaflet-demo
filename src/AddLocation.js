@@ -5,8 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 class AddLocation extends Component {
-  // $FlowFixMe: ref
-  //refmarker = createRef<Marker>()
+
   refmarker = createRef()
   constructor(props) {
     super(props)

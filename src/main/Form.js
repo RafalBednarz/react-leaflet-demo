@@ -1,18 +1,17 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import {Typeahead} from 'react-bootstrap-typeahead'
+import { AutosuggestCity } from './AutosuggestCity'
 import {MY_CITIES} from '../Cities'
 
-const Form = ({ handleSubmit, onChange}) => (
+const Form = ({handleSubmit}) => (
 
   <div className="filterCities">
     <form onSubmit={handleSubmit}>
     <div>
-    <label>Miasto</label>
-    <Typeahead
-      labelKey="city"
-      options={MY_CITIES}
-    />
+      <label>Miasto</label>
+      <div>
+        <Field name="filtercity" component={AutosuggestCity} suggestions={MY_CITIES} />
+      </div>
       <label>Cena</label>
       <div>
         <Field name="filterlines" component="select">

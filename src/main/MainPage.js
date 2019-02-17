@@ -19,8 +19,10 @@ class MainPage extends Component {
 
   handleChange(newPrice) {
     const { dispatch } = this.props
-    console.log('+++')
-    console.log(newPrice.filterlines)
+    console.log('+++ entered handleChange')
+    console.log(newPrice)
+    console.log("filterlines: " + newPrice.filterlines)
+    console.log("filterCity: " + newPrice.filtercity)
     dispatch(fetchLocations(newPrice.filterlines))
   }
 

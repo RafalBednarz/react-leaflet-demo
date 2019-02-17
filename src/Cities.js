@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const MY_CITIES = [
   {city: 'Kraków',
   lon: 19.9449799,
